@@ -6,6 +6,15 @@ These scripts will deploy two PowerShell runbooks, the contents are in files/*.p
 1. 1 will asses index fragmentation and will rebuild an index when fragmentation is above 20%.
 2. 1 will update internal sql statistics
 
+# Problems that need solving
+When a data is removed and added from a database a indexes can get fragmentated. Meaning that the index points to a location where the data is not present. Typically resulting in a performance penalty.
+When you rebuild an index you need to let the internal statistisc of the database know that the index is good health. Those statistics are used to determine the best execution plan.
+
+Both need to be up to date to make sure the database is performing in good order. This runbook will try and keep that up to spec.
+
+Background information 'SQL statistics' : https://docs.microsoft.com/en-us/sql/relational-databases/statistics/statistics?view=sql-server-ver16
+Background information 'Index Fragmentation' : https://docs.microsoft.com/en-us/sql/relational-databases/indexes/reorganize-and-rebuild-indexes?view=sql-server-ver16
+
 # Set up
 The main part are the objects in runbook-resources.tf. You may need objects that relate to the main objects, you will find examples in basics.tf. Like a key vault, a secret, resources group.
 
@@ -18,7 +27,7 @@ The script will create 1 automation account, 2 runbooks, 1 schedule, 1 credentia
 - Automation Account
 - Runbooks : Scripts thate are run. One for reindexing, one for updating internal statistics.
 - Credential : Credential is an object holds a username and password, fetched from a key vault. Both runbook use this single credential
-- Schedule : Schedule the runbook will follow for firing. Both runbooks use this single schedule
+- Schedule : Schedule the runbook will follow for firing. Both runbooks use this single schedule. When not providing a schedule it will default no now + 7 minutes.
 
 
 # Caveats and gotcha's
