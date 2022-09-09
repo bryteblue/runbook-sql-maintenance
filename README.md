@@ -13,6 +13,7 @@ When you rebuild an index you need to let the internal statistisc of the databas
 Both need to be up to date to make sure the database is performing in good order. This runbook will try and keep that up to spec.
 
 Background information 'SQL statistics' : https://docs.microsoft.com/en-us/sql/relational-databases/statistics/statistics?view=sql-server-ver16
+
 Background information 'Index Fragmentation' : https://docs.microsoft.com/en-us/sql/relational-databases/indexes/reorganize-and-rebuild-indexes?view=sql-server-ver16
 
 # Set up
